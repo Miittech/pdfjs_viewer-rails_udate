@@ -25702,7 +25702,7 @@ if (typeof PDFJS === 'undefined' || !PDFJS.compatibilityChecked) {
         return this._responseType || 'text';
       },
       set: function xmlHttpRequestSetResponseType(value) {
-        if (value === 'text' || value === 'arraybuffer') {
+    	if (value === 'text' || value === 'arraybuffer' || (navigator.userAgent.includes("Firefox") && value === 'moz-chunked-arraybuffer')) {
           this._responseType = value;
           if (value === 'arraybuffer' && typeof this.overrideMimeType === 'function') {
             this.overrideMimeType('text/plain; charset=x-user-defined');
