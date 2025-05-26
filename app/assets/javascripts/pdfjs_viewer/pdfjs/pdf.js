@@ -18100,9 +18100,16 @@ function getArrayBuffer(xhr) {
 var supportsMozChunked = function supportsMozChunkedClosure() {
   try {
     var x = new XMLHttpRequest();
-    x.open('GET', _global_scope2.default.location.href);
-    x.responseType = 'moz-chunked-arraybuffer';
-    return x.responseType === 'moz-chunked-arraybuffer';
+    x.open('GET', 'https://example.com');
+
+    // Check if the browser is Firefox before using the response type
+    if (navigator.userAgent.includes("Firefox")) {
+      x.responseType = 'moz-chunked-arraybuffer';
+        return x.responseType === 'moz-chunked-arraybuffer';
+      } else {
+        x.responseType = 'arraybuffer'; // Use standard responseType for other browsers
+          return x.responseType === 'arraybuffer';
+      }
   } catch (e) {
     return false;
   }
